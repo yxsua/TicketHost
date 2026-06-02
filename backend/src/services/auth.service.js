@@ -136,7 +136,6 @@ const loginAgente = async (email, password) => {
         id: usuario.AGENTE_ID,
         nombre: usuario.NOMBRE,
         email: usuario.EMAIL,
-        departamento: usuario.DEPARTAMENTO,
       },
     };
   } finally {
@@ -168,9 +167,8 @@ const loginAdmin = async (email, password) => {
     token,
     usuario: {
       id: 0,
-      tipo: "admin",
       nombre: "Administrador",
-      email,
+      email: "admin@tickets.local",
     },
   };
 };

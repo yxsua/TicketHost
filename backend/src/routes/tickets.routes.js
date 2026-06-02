@@ -9,16 +9,82 @@ const roles = require("../middleware/roles");
 
 router.get("/", auth, roles("admin", "agente"), controller.obtenerTickets);
 
-router.get("/:id", validarId, auth, roles("admin", "agente", "cliente"), controller.obtenerTicketPorId);
+router.get(
+  "/mis-tickets",
+  auth,
+  roles("cliente"),
+  controller.obtenerMisTickets,
+);
 
-router.post("/", validarTicket, auth, roles("admin", "agente", "cliente"), controller.crearTicket);
+router.get(
+  "/sin-asignar",
+  auth,
+  roles("admin", "agente"),
+  controller.obtenerTicketsSinAsignar,
+);
 
-router.put("/:id", validarId, validarTicket, auth, roles("admin", "agente", "cliente"), controller.actualizarTicket);
+router.get(
+  "/mis-asignados",
+  auth,
+  roles("agente"),
+  controller.obtenerMisAsignados,
+);
 
-router.delete("/:id", validarId, auth, roles("admin"), controller.eliminarTicket);
+router.patch(
+  "/:id/estado",
+  validarId,
+  auth,
+  roles("admin", "agente"),
+  controller.cambiarEstado,
+);
 
-router.patch("/:id/estado", validarId, auth, roles("admin", "agente"), controller.cambiarEstado);
+router.get(
+  "/:id/historial",
+  validarId,
+  auth,
+  roles("admin", "agente", "cliente"),
+  historialController.obtenerHistorialPorTicket,
+);
 
-router.get("/:id/historial", validarId, auth, roles("admin", "agente", "cliente"), historialController.obtenerHistorialPorTicket);
+router.patch(
+  "/:id/asignar",
+  validarId,
+  auth,
+  roles("admin", "agente"),
+  controller.asignarTicket,
+);
+
+router.get(
+  "/:id",
+  validarId,
+  auth,
+  roles("admin", "agente", "cliente"),
+  controller.obtenerTicketPorId,
+);
+
+router.post(
+  "/",
+  validarTicket,
+  auth,
+  roles("admin", "agente", "cliente"),
+  controller.crearTicket,
+);
+
+router.put(
+  "/:id",
+  validarId,
+  validarTicket,
+  auth,
+  roles("admin", "agente", "cliente"),
+  controller.actualizarTicket,
+);
+
+router.delete(
+  "/:id",
+  validarId,
+  auth,
+  roles("admin"),
+  controller.eliminarTicket,
+);
 
 module.exports = router;

@@ -25,9 +25,12 @@ const obtenerTicketPorId = asyncHandler(async (req, res) => {
 });
 
 const crearTicket = asyncHandler(async (req, res) => {
-  const { cliente_id, categoria_id, titulo, descripcion } = req.body;
+  const ticket = {
+    ...req.body,
+    cliente_id: req.user.tipo === "cliente" ? req.user.id : req.body.cliente_id,
+  };
 
-  await ticketsService.crearTicket(req.body);
+  await ticketsService.crearTicket(ticket);
 
   res.status(201).json({
     success: true,
@@ -54,18 +57,54 @@ const eliminarTicket = asyncHandler(async (req, res) => {
 });
 
 const cambiarEstado = asyncHandler(async (req, res) => {
-  const { estado, usuario, comentario } = req.body;
+  const { estado, comentario } = req.body;
 
   await ticketsService.cambiarEstado(
     req.params.id,
     estado,
-    usuario,
+    req.user.nombre,
     comentario,
   );
 
   res.status(200).json({
     success: true,
     message: "Estado actualizado correctamente",
+  });
+});
+
+const obtenerMisTickets = asyncHandler(async (req, res) => {
+  const tickets = await ticketsService.obtenerTicketsCliente(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    data: tickets,
+  });
+});
+
+const obtenerTicketsSinAsignar = asyncHandler(async (req, res) => {
+  const tickets = await ticketsService.obtenerTicketsSinAsignar();
+
+  res.status(200).json({
+    success: true,
+    data: tickets,
+  });
+});
+
+const asignarTicket = asyncHandler(async (req, res) => {
+  await ticketsService.asignarTicket(req.params.id, req.user.id);
+
+  res.status(200).json({
+    success: true,
+    message: "Ticket asignado",
+  });
+});
+
+const obtenerMisAsignados = asyncHandler(async (req, res) => {
+  const tickets = await ticketsService.obtenerTicketsAgente(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    data: tickets,
   });
 });
 
@@ -76,4 +115,8 @@ module.exports = {
   actualizarTicket,
   eliminarTicket,
   cambiarEstado,
+  obtenerMisTickets,
+  obtenerTicketsSinAsignar,
+  asignarTicket,
+  obtenerMisAsignados,
 };

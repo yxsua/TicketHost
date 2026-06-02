@@ -10,10 +10,10 @@ router.get("/", auth, roles("admin", "agente"),controller.obtenerAgentes);
 
 router.get("/:id", validarId, auth, roles("admin", "agente"), controller.obtenerAgentePorId);
 
-router.post("/", validarAgente, roles("admin"), auth, controller.crearAgente);
+router.post("/", validarAgente, auth, roles("admin"), controller.crearAgente);
 
 router.put("/:id", validarId, validarAgente, auth, roles("admin", "agente"), controller.actualizarAgente);
 
-router.delete("/:id", validarId, roles("admin"), auth, controller.eliminarAgente);
+router.delete("/:id", validarId, auth, roles("admin"), controller.eliminarAgente);
 
 module.exports = router;

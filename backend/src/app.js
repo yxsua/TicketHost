@@ -14,6 +14,7 @@ const agentesRoutes = require("./routes/agentes.routes");
 const ticketsRoutes = require("./routes/tickets.routes");
 const historialRoutes = require("./routes/historial.routes");
 const authRoutes = require("./routes/auth.routes");
+const comentariosRoutes = require("./routes/comentarios.routes");
 
 app.use("/api/agentes", agentesRoutes);
 app.use("/api/test", testRoutes);
@@ -22,6 +23,7 @@ app.use("/api/clientes", clientesRoutes);
 app.use("/api/tickets", ticketsRoutes);
 app.use("/api/historial", historialRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/comentarios", comentariosRoutes);
 
 // Registrar middleware
 const errorHandler = require("./middleware/errorHandler");

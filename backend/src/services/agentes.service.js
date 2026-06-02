@@ -107,7 +107,7 @@ const actualizarAgente = async (agenteId, nombre, email, departamento, passwordH
         nombre,
         email,
         departamento,
-        passwordHash,
+        password_hash: passwordHash,
       },
     );
   } finally {

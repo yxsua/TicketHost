@@ -1,7 +1,11 @@
 const AppError = require("../utils/AppError");
 
 const validarId = (req, res, next) => {
-  const id = Number(req.params.id);
+  var id = Number(req.params.id);
+
+  if (id) {} else if (req.params.ticketId) {
+    id = Number(req.params.ticketId);
+  }
 
   if (!Number.isInteger(id) || id <= 0) {
     return next(

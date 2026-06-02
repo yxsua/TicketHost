@@ -171,6 +171,95 @@ const cambiarEstado = async (id, estado, usuario, comentario) => {
   }
 };
 
+const obtenerTicketsCliente = async (clienteId) => {
+  let conn;
+
+  try {
+    conn = await getConnection();
+
+    const result = await conn.execute(
+      `
+      SELECT *
+      FROM vw_tickets_detalle
+      WHERE cliente_id = :clienteId
+      ORDER BY ticket_id DESC
+      `,
+      { clienteId },
+    );
+
+    return result.rows;
+  } finally {
+    if (conn) await conn.close();
+  }
+};
+
+const obtenerTicketsSinAsignar = async () => {
+  let conn;
+
+  try {
+    conn = await getConnection();
+
+    const result = await conn.execute(`
+      SELECT *
+      FROM vw_tickets_detalle
+      WHERE agente_id IS NULL
+      ORDER BY ticket_id DESC
+    `);
+
+    return result.rows;
+  } finally {
+    if (conn) await conn.close();
+  }
+};
+
+const asignarTicket = async (ticketId, agenteId) => {
+  let conn;
+
+  try {
+    conn = await getConnection();
+
+    await conn.execute(
+      `
+      UPDATE tickets
+      SET agente_id = :agenteId
+      WHERE ticket_id = :ticketId
+      `,
+      {
+        ticketId,
+        agenteId,
+      },
+    );
+
+    await conn.commit();
+  } finally {
+    if (conn) await conn.close();
+  }
+};
+
+const obtenerTicketsAgente = async (
+  agenteId
+) => {
+  let conn;
+
+  try {
+    conn = await getConnection();
+
+    const result = await conn.execute(
+      `
+      SELECT *
+      FROM vw_tickets_detalle
+      WHERE agente_id = :agenteId
+      ORDER BY ticket_id DESC
+      `,
+      { agenteId }
+    );
+
+    return result.rows;
+  } finally {
+    if (conn) await conn.close();
+  }
+};
+
 module.exports = {
   obtenerTickets,
   obtenerTicketPorId,
@@ -178,4 +267,8 @@ module.exports = {
   actualizarTicket,
   eliminarTicket,
   cambiarEstado,
+  obtenerTicketsCliente,
+  obtenerTicketsSinAsignar,
+  asignarTicket,
+  obtenerTicketsAgente,
 };
