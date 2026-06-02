@@ -1,9 +1,8 @@
 const oracledb = require("oracledb");
 
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
-oracledb.fetchAsString = [
-  oracledb.CLOB
-];
+oracledb.fetchAsString = [oracledb.CLOB];
+oracledb.autoCommit = true;
 
 async function initialize() {
   await oracledb.createPool({
@@ -13,7 +12,7 @@ async function initialize() {
 
     poolMin: 2,
     poolMax: 10,
-    poolIncrement: 1
+    poolIncrement: 1,
   });
 
   console.log("Oracle Pool creado");
@@ -32,5 +31,5 @@ async function getConnection() {
 module.exports = {
   initialize,
   closePool,
-  getConnection
+  getConnection,
 };

@@ -1,8 +1,6 @@
 const router = require("express").Router();
 
-const {
-  testConnection,
-} = require("../controllers/test.controller");
+const { testConnection } = require("../controllers/test.controller");
 
 router.get("/", testConnection);
 
