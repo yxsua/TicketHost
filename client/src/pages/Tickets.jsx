@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getTickets, deleteTicket } from "../services/tickets.service";
-import "./styles/styles.css";
+import "../styles/styles.css";
 
 export default function Tickets() {
     const [tickets, setTickets] = useState([]);

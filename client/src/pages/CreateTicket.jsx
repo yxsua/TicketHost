@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createTicket } from "../services/tickets.service";
-import "./styles/styles.css";
+import "../styles/styles.css";
 
 export default function CreateTicket() {
     const [titulo, setTitulo] = useState("");

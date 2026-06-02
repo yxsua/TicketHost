@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { loginCliente, loginAgente, loginAdmin } from "../services/auth.service";
-import "./styles/styles.css";
+import "../styles/styles.css";
 
 export default function Login() {
     const [email, setEmail] = useState("");
