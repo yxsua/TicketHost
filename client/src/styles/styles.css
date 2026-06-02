@@ -1,0 +1,90 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: #1e293b;
+  align-items: center;
+}
+
+.navbar a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.navbar button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th {
+  background: #1e293b;
+  padding: 10px;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #334155;
+}
+
+/* BUTTONS */
+button {
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+  margin: 2px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* LOGIN */
+.login-container {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  background: #1e293b;
+  border-radius: 10px;
+}
+
+.login-container input,
+.login-container select {
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px;
+}
+
+/* DETAIL */
+.detail-container {
+  padding: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
