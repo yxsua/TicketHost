@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+}
+
+a {
+  color: white;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+/* NAV */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: #1e293b;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th {
+  background: #1e293b;
+  padding: 10px;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #334155;
+}
+
+/* BUTTON */
+button {
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* DETAIL */
+.detail-container {
+  padding: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
