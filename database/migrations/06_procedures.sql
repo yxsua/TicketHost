@@ -63,10 +63,11 @@ END;
 /
 
 CREATE OR REPLACE PROCEDURE sp_insertar_cliente(
-    p_nombre     IN VARCHAR2,
-    p_email      IN VARCHAR2,
-    p_telefono   IN VARCHAR2,
-    p_compania   IN VARCHAR2
+    p_nombre         IN VARCHAR2,
+    p_email          IN VARCHAR2,
+    p_telefono       IN VARCHAR2,
+    p_compania       IN VARCHAR2,
+    p_password_hash  IN VARCHAR2
 )
 AS
 BEGIN
@@ -74,13 +75,15 @@ BEGIN
         nombre,
         email,
         telefono,
-        compania
+        compania,
+        password_hash
     )
     VALUES (
         p_nombre,
         p_email,
         p_telefono,
-        p_compania
+        p_compania,
+        p_password_hash
     );
 
     COMMIT;
@@ -88,11 +91,12 @@ END;
 /
 
 CREATE OR REPLACE PROCEDURE sp_actualizar_cliente(
-    p_cliente_id IN NUMBER,
-    p_nombre     IN VARCHAR2,
-    p_email      IN VARCHAR2,
-    p_telefono   IN VARCHAR2,
-    p_compania   IN VARCHAR2
+    p_cliente_id     IN NUMBER,
+    p_nombre         IN VARCHAR2,
+    p_email          IN VARCHAR2,
+    p_telefono       IN VARCHAR2,
+    p_compania       IN VARCHAR2,
+    p_password_hash  IN VARCHAR2
 )
 AS
 BEGIN
@@ -100,7 +104,8 @@ BEGIN
     SET nombre = p_nombre,
         email = p_email,
         telefono = p_telefono,
-        compania = p_compania
+        compania = p_compania,
+        password_hash = p_password_hash
     WHERE cliente_id = p_cliente_id
       AND activo = 1;
 
@@ -112,6 +117,24 @@ BEGIN
     END IF;
 
     COMMIT;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE sp_obtener_cliente_login(
+    p_email IN VARCHAR2,
+    p_cursor OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN p_cursor FOR
+        SELECT
+            cliente_id,
+            nombre,
+            email,
+            password_hash
+        FROM Clientes
+        WHERE email = p_email
+          AND activo = 1;
 END;
 /
 
@@ -137,21 +160,24 @@ END;
 /
 
 CREATE OR REPLACE PROCEDURE sp_insertar_agente(
-    p_nombre        IN VARCHAR2,
-    p_email         IN VARCHAR2,
-    p_departamento  IN VARCHAR2
+    p_nombre         IN VARCHAR2,
+    p_email          IN VARCHAR2,
+    p_departamento   IN VARCHAR2,
+    p_password_hash  IN VARCHAR2
 )
 AS
 BEGIN
     INSERT INTO Agentes (
         nombre,
         email,
-        departamento
+        departamento,
+        password_hash
     )
     VALUES (
         p_nombre,
         p_email,
-        p_departamento
+        p_departamento,
+        p_password_hash
     );
 
     COMMIT;
@@ -159,17 +185,19 @@ END;
 /
 
 CREATE OR REPLACE PROCEDURE sp_actualizar_agente(
-    p_agente_id     IN NUMBER,
-    p_nombre        IN VARCHAR2,
-    p_email         IN VARCHAR2,
-    p_departamento  IN VARCHAR2
+    p_agente_id      IN NUMBER,
+    p_nombre         IN VARCHAR2,
+    p_email          IN VARCHAR2,
+    p_departamento   IN VARCHAR2,
+    p_password_hash  IN VARCHAR2
 )
 AS
 BEGIN
     UPDATE Agentes
     SET nombre = p_nombre,
         email = p_email,
-        departamento = p_departamento
+        departamento = p_departamento,
+        password_hash = p_password_hash
     WHERE agente_id = p_agente_id
       AND activo = 1;
 
@@ -181,6 +209,25 @@ BEGIN
     END IF;
 
     COMMIT;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE sp_obtener_agente_login(
+    p_email IN VARCHAR2,
+    p_cursor OUT SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN p_cursor FOR
+        SELECT
+            agente_id,
+            nombre,
+            email,
+            departamento,
+            password_hash
+        FROM Agentes
+        WHERE email = p_email
+          AND activo = 1;
 END;
 /
 

@@ -12,7 +12,13 @@ WHERE activo = 1;
 --------------------------------------------------
 
 CREATE OR REPLACE VIEW vw_clientes AS
-SELECT *
+SELECT
+    cliente_id,
+    nombre,
+    email,
+    telefono,
+    compania,
+    fecha_registro
 FROM Clientes
 WHERE activo = 1;
 
@@ -21,7 +27,12 @@ WHERE activo = 1;
 --------------------------------------------------
 
 CREATE OR REPLACE VIEW vw_agentes AS
-SELECT *
+SELECT
+    agente_id,
+    nombre,
+    email,
+    departamento,
+    fecha_contratacion
 FROM Agentes
 WHERE activo = 1;
 
