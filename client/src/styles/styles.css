@@ -1,30 +1,22 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   background: #0f172a;
   color: white;
 }
 
-/* NAVBAR */
+a {
+  color: white;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+/* NAV */
 .navbar {
   display: flex;
   justify-content: space-between;
   padding: 15px;
   background: #1e293b;
-  align-items: center;
-}
-
-.navbar a {
-  color: white;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-.navbar button {
-  background: red;
-  color: white;
-  border: none;
-  padding: 5px 10px;
 }
 
 /* TABLE */
@@ -44,32 +36,11 @@ td {
   border-bottom: 1px solid #334155;
 }
 
-/* BUTTONS */
+/* BUTTON */
 button {
   padding: 6px 10px;
   border: none;
   cursor: pointer;
-  margin: 2px;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
-/* LOGIN */
-.login-container {
-  width: 300px;
-  margin: 100px auto;
-  padding: 20px;
-  background: #1e293b;
-  border-radius: 10px;
-}
-
-.login-container input,
-.login-container select {
-  width: 100%;
-  margin: 5px 0;
-  padding: 8px;
 }
 
 /* DETAIL */
@@ -84,7 +55,7 @@ button:hover {
 }
 
 .actions {
-  margin-top: 15px;
+  margin-top: 10px;
   display: flex;
   gap: 10px;
 }

@@ -1,11 +1,14 @@
 import axios from "axios";
+import { USE_BACKEND, API_BASE } from "../config";
 
 const API = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: API_BASE,
 });
 
-// intercepta token
+// interceptor solo si backend activo
 API.interceptors.request.use((req) => {
+  if (!USE_BACKEND) return req;
+
   const token = localStorage.getItem("token");
   if (token) {
     req.headers.Authorization = `Bearer ${token}`;

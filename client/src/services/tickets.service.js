@@ -1,18 +1,57 @@
 import API from "./api";
+import { USE_BACKEND } from "../config";
+import { ticketsMock } from "../mock/tickets.mock";
 
-export const getTickets = () => API.get("/tickets");
+// GET ALL
+export const getTickets = () => {
+  if (!USE_BACKEND) {
+    return Promise.resolve({
+      data: { data: ticketsMock },
+    });
+  }
 
-export const getTicketById = (id) =>
-  API.get(`/tickets/${id}`);
+  return API.get("/tickets");
+};
 
-export const createTicket = (data) =>
-  API.post("/tickets", data);
+// GET BY ID
+export const getTicketById = (id) => {
+  if (!USE_BACKEND) {
+    const ticket = ticketsMock.find((t) => t.id == id);
 
-export const updateTicket = (id, data) =>
-  API.put(`/tickets/${id}`, data);
+    return Promise.resolve({
+      data: { data: ticket },
+    });
+  }
 
-export const deleteTicket = (id) =>
-  API.delete(`/tickets/${id}`);
+  return API.get(`/tickets/${id}`);
+};
 
-export const cambiarEstado = (id, data) =>
-  API.patch(`/tickets/${id}/estado`, data);
+// CREATE
+export const createTicket = (data) => {
+  if (!USE_BACKEND) {
+    console.log("MOCK CREATE:", data);
+    return Promise.resolve();
+  }
+
+  return API.post("/tickets", data);
+};
+
+// DELETE
+export const deleteTicket = (id) => {
+  if (!USE_BACKEND) {
+    console.log("MOCK DELETE:", id);
+    return Promise.resolve();
+  }
+
+  return API.delete(`/tickets/${id}`);
+};
+
+// CAMBIAR ESTADO
+export const cambiarEstado = (id, data) => {
+  if (!USE_BACKEND) {
+    console.log("MOCK STATUS:", id, data);
+    return Promise.resolve();
+  }
+
+  return API.patch(`/tickets/${id}/estado`, data);
+};
